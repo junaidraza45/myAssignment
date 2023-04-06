@@ -1,0 +1,61 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+        jdbc:
+          batch_size: 1000
+          order_inserts: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+        type:
+          descriptor:
+            sql:
+              BasicBinder:  INFO
+      springframework:  INFO
+#  pattern:
+#    console: %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  health,info
+    jmx:
+      exposure:
+        include: "*"
+
+server:
+  port: 8080
+
+application:
+  cachedFilepath: "src/test/resources/jour.json"
+  sitcachedFilepath: "src/test/resources/site.json"
+  apiUrl: "https://api.sl.se/api2/linedata.json?key=e37c5cf7c8e344718a8bd79574741188&model=jour&DefaultTransportModeCode=BUS"
+  sitapiUrl: "https://api.sl.se/api2/linedata.json?key=e37c5cf7c8e344718a8bd79574741188&model=site&DefaultTransportModeCode=BUS"
+  api:
+    offlineMode: false #truning true means it will not call to sl apiendpoint & data will be fetched from cachedFilepath instead
+    readTimeOut: 10_000
+    connectionTimeOut: 10_000
+
